@@ -361,6 +361,7 @@ func (cfg *config) checkNoLeader() {
 }
 
 // how many servers think a log entry is committed?
+// 有多少个节点对index这个位置的Log达成commit
 func (cfg *config) nCommitted(index int) (int, interface{}) {
 	count := 0
 	var cmd interface{} = nil
@@ -457,7 +458,7 @@ func (cfg *config) one(cmd interface{}, expectedServers int, retry bool) int {
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
-				fmt.Println(nd,cmd1)
+				fmt.Println(nd,cmd1,index)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					if cmd1 == cmd {

@@ -266,7 +266,7 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 
 // 心跳请求
 func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) bool {
-	Logf(DEBUG, CfgLogLevel, rf.me, "sendAppendEntries in term", rf.CurrentTerm, "state is", rf.State)
+	//Logf(DEBUG, CfgLogLevel, rf.me, "sendAppendEntries in term", rf.CurrentTerm, "state is", rf.State)
 	ok := rf.peers[server].Call("Raft.AppendEntriesHandler", args, reply)
 	return ok
 }
@@ -305,8 +305,8 @@ func (rf *Raft) AppendEntriesHandler(args *AppendEntriesArgs, reply *AppendEntri
 		return
 	}
 	// 1.处理follower log为空的情况
-	if len(rf.log) == 1 {
-		Logf(DEBUG, CfgLogLevel, rf.me, "rf.log == 1 ")
+	if len(rf.log) == 0 {
+		Logf(DEBUG, CfgLogLevel, rf.me, "rf.log == 0 ")
 		rf.log = append(rf.log, args.Entries...)
 		rf.LastLogIndex = len(rf.log) - 1
 		Logf(DEBUG, CfgLogLevel, rf.me, " update log index to ", rf.LastLogIndex, " in term", rf.CurrentTerm, ". now log is ", rf.log)
@@ -490,13 +490,14 @@ func (rf *Raft) InitLeader() {
 			agreeCount := 1
 			minMatchIndex := -1
 			//初始化minMatchIndex
+			//fmt.Println(rf.matchIndex)
 			for _, v := range rf.matchIndex {
-				if v > rf.commitIndex {
+				if v >= rf.commitIndex {
 					minMatchIndex = v
 					break
 				}
 			}
-
+			//fmt.Println("minMatchIndex",minMatchIndex)
 			for _, v := range rf.matchIndex {
 				if v >= rf.commitIndex {
 					agreeCount++
@@ -506,11 +507,13 @@ func (rf *Raft) InitLeader() {
 				}
 			}
 
-			if agreeCount > len(rf.peers)/2 && rf.log[minMatchIndex].Term == rf.CurrentTerm {
+			if agreeCount > len(rf.peers)/2 && minMatchIndex >=0 && rf.log[minMatchIndex].Term == rf.CurrentTerm {
+				//Logf(DEBUG, CfgLogLevel, rf.me, "start apply msg...")
 				oldCommitIndex := rf.commitIndex
 				rf.commitIndex = minMatchIndex
 				//如果commitIndex > lastApplied，那么就 lastApplied 加一，并把log[lastApplied]应用到状态机中（5.3 节）
-				for i := oldCommitIndex + 1; i <= rf.commitIndex; i++ {
+				for i := oldCommitIndex+1; i <= rf.commitIndex; i++ {
+					//fmt.Println("start apply msg...")
 					applyMsg := ApplyMsg{
 						CommandValid: true,
 						Command:      rf.log[i],
@@ -540,25 +543,21 @@ func (rf *Raft) InitLeader() {
 
 				var req *AppendEntriesArgs
 
-				if len(rf.log) == 1 {
-					req = &AppendEntriesArgs{
-						Term:         rf.CurrentTerm,
-						LeaderId:     rf.me,
-						PrevLogIndex: 0,
-						PrevLogTerm:  0,
-						Entries:      []LogEntry{},
-						LeaderCommit: 0,
-					}
+				req = &AppendEntriesArgs{}
+				req.Term = rf.CurrentTerm
+				req.LeaderId = rf.me
+				req.Entries = rf.log[rf.nextIndex[i]:]
+
+				if len(rf.log) == 0 || rf.nextIndex[i] == 0 {
+					req.PrevLogIndex = 0
+					req.PrevLogTerm = 0
+					req.LeaderCommit = -1
 				} else {
-					req = &AppendEntriesArgs{
-						Term:         rf.CurrentTerm,
-						LeaderId:     rf.me,
-						PrevLogIndex: rf.nextIndex[i] - 1,
-						PrevLogTerm:  rf.log[rf.nextIndex[i]-1].Term,
-						Entries:      rf.log[rf.nextIndex[i]:],
-						LeaderCommit: rf.commitIndex,
-					}
+					req.PrevLogIndex = rf.nextIndex[i] - 1
+					req.PrevLogTerm = rf.log[rf.nextIndex[i]-1].Term
+					req.LeaderCommit = rf.commitIndex
 				}
+
 				rsp := &AppendEntriesReply{}
 				entriesLen := len(req.Entries)
 				rf.mu.Unlock()
@@ -617,22 +616,15 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.LastLogIndex = 0
 	rf.LastLogTerm = 1
 
-	rf.lastApplied = 0
-	rf.commitIndex = 0
+	rf.lastApplied = -1
+	rf.commitIndex = -1
 
 	for i := 0; i < len(peers); i++ {
-		rf.nextIndex = append(rf.nextIndex, len(rf.log)+1)
-		rf.matchIndex = append(rf.matchIndex, len(rf.log))
+		rf.nextIndex = append(rf.nextIndex, len(rf.log))
+		rf.matchIndex = append(rf.matchIndex, -1)
 	}
 
-	rf.log = []LogEntry{LogEntry{}}
-
-	applyMsg := ApplyMsg{
-		CommandValid: true,
-		Command:      rf.log[0],
-		CommandIndex: 0,
-	}
-	rf.ApplyCh <- applyMsg
+	rf.log = []LogEntry{}
 
 	rand.Seed(time.Now().UnixNano())
 	rf.Timeout = time.Duration(int64(500)+rand.Int63n(500)) * time.Millisecond
