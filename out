@@ -1,0 +1,94 @@
+10:38:48.015792 logf.go:20: Make invoke
+10:38:48.016110 logf.go:20: Make invoke
+10:38:48.016208 logf.go:20: Make invoke
+Test (2A): election after network failure ...
+10:38:48.648813 logf.go:20: 1 start InitCandidate in term 1
+10:38:48.649596 logf.go:20: 2 vote for 1 in term 1
+10:38:48.649733 logf.go:20: 1  become leader in term 1
+10:38:48.650294 logf.go:20: 0 vote for 1 in term 1
+10:38:48.761382 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:48.761465 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:48.762617 logf.go:20: 2  receive AppendEntries from  1  in term 1
+10:38:48.762714 logf.go:20: 2  receive AppendEntries from  1  and reset timer in term 1
+10:38:48.762943 logf.go:20: 0  receive AppendEntries from  1  in term 1
+10:38:48.762972 logf.go:20: 0  receive AppendEntries from  1  and reset timer in term 1
+10:38:48.870676 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:48.870964 logf.go:20: 2  receive AppendEntries from  1  in term 1
+10:38:48.870985 logf.go:20: 2  receive AppendEntries from  1  and reset timer in term 1
+10:38:48.871142 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:48.871545 logf.go:20: 0  receive AppendEntries from  1  in term 1
+10:38:48.871592 logf.go:20: 0  receive AppendEntries from  1  and reset timer in term 1
+######## start down  1
+######## finish down  1
+10:38:48.980732 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:48.980734 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.091275 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.091338 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.205093 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.205108 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.311048 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.311378 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.422322 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.422435 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.521891 logf.go:20: 2 start InitCandidate in term 2
+10:38:49.522273 logf.go:20: 0 vote for 2 in term 2
+10:38:49.522396 logf.go:20: 2  become leader in term 2
+10:38:49.531018 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.531166 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.633484 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.633575 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.633711 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:49.633719 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:49.640498 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.640615 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.744030 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.744442 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.744752 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:49.744774 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:49.750642 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.750764 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.854284 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.854471 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.855424 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:49.855484 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:49.860801 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.860919 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.963973 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.964138 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:49.964526 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:49.964550 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:49.971539 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:49.972079 logf.go:20: 1 sendAppendEntries in term 1 state is 2
+10:38:50.072647 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.073154 logf.go:20: 1  receive AppendEntries from  2  in term 1
+10:38:50.073187 logf.go:20: 1  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.073535 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.073746 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:50.073763 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.080812 logf.go:20: 1 sendAppendEntries in term 2 state is 2
+10:38:50.081144 logf.go:20: 2  receive AppendEntries from  1  in term 2
+10:38:50.081368 logf.go:20: 1 sendAppendEntries in term 2 state is 2
+10:38:50.081713 logf.go:20: 0  receive AppendEntries from  1  in term 2
+10:38:50.182761 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.183091 logf.go:20: 1  receive AppendEntries from  2  in term 2
+10:38:50.183110 logf.go:20: 1  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.183292 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.183699 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:50.183745 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.293665 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.293996 logf.go:20: 1  receive AppendEntries from  2  in term 2
+10:38:50.294014 logf.go:20: 1  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.294213 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.294375 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:50.294389 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.404304 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.404621 logf.go:20: 1  receive AppendEntries from  2  in term 2
+10:38:50.404643 logf.go:20: 1  receive AppendEntries from  2  and reset timer in term 2
+10:38:50.404811 logf.go:20: 2 sendAppendEntries in term 2 state is 2
+10:38:50.405115 logf.go:20: 0  receive AppendEntries from  2  in term 2
+10:38:50.405145 logf.go:20: 0  receive AppendEntries from  2  and reset timer in term 2
+--- FAIL: TestReElection2A (2.43s)
+    config.go:320: term 2 has 2 (>1) leaders, [[1 2]]
+FAIL
+exit status 1
+FAIL	raft	2.433s
