@@ -12,6 +12,7 @@ node () {
 sh """ 
 echo "shell begin"
 pwd 
+pr1
  """ 
 	}
 }
