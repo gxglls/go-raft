@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "git-tag"
+  ],
+  "owner": "gxglls",
+  "repo": "go-raft",
+  "name": "gxglls",
+  "email": "498340080@qq.com"
+}
